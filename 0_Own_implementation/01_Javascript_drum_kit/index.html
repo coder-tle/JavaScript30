@@ -157,18 +157,22 @@
         console.log(e.keyCode);
         const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
         const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
-        const keys = document.querySelectorAll('.key');
+       
+
+
+
+
         // keys.classList.remove('playing');
 
         // keys.forEach()
         //  console.log(keys);
         
-        for(var i = 0; i<keys.length; i++)
-        {
-            keys[i].classList.remove('playing');
-        }
-        // console.log(audio);
-        if(!audio) return;
+        // for(var i = 0; i<keys.length; i++)
+        // {
+        //     keys[i].classList.remove('playing');
+        // }
+        // // console.log(audio);
+        // if(!audio) return;
         audio.currentTime = 0;
         // key.classList.remove('playing');
         audio.play();
@@ -179,6 +183,19 @@
         key.classList.add('playing');
         
     })
+
+    function removeTransition(e){
+        // console.log(e);
+        // console.log(this);
+        if(e.propertyName !== 'transform') // why choose property 'transform', since it is longest time taking property
+        return;
+        // console.log(this); // it will specify the execution context
+        this.classList.remove('playing'); // 
+        
+    }
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition)); // for each key we are assigning event listener
+                                                                                    // all keys simultaneously can't be assigned event listener
 
 
 
